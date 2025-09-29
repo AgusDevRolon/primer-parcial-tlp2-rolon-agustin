@@ -60,4 +60,9 @@ UserSchema.virtual("assets", {
   foreignField: "responsible", 
 });
 
+UserSchema.methods.softDelete = async function () {
+  this.deletedAt = new Date();
+  await this.save();
+};
+
 export const UserModel = model("User", UserSchema);

@@ -22,9 +22,12 @@ const AssetSchema = new Schema(
     acquisitionValue: { type: Number, required: true, min: 0 },
     // ! FALTA COMPLETAR ACA
     responsible: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // 1:N
+    categories: [{ type: Schema.Types.ObjectId, ref: "Category" }], // N:M
 
   },
-  { timestamps: true }
+  { timestamps: true },
+  {toJSON: {virtuals: true}},
+  {toObject: {virtuals: true}}
 );
 
 AssetSchema.virtual("userAssets", {
@@ -33,4 +36,13 @@ AssetSchema.virtual("userAssets", {
   foreignField: "_id",
 });
 
+AssetSchema.pre("deleteOne", { document: true, query: false }, async function(next) {
+  const assetId = this._id;
+
+  await mongoose.model("Category").updateMany(
+    { _id: { $in: this.categories } },
+  );
+
+  next();
+});
 export const AssetModel = model("Asset", AssetSchema);

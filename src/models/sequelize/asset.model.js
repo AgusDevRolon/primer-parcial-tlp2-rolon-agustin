@@ -26,4 +26,5 @@ export const AssetModel = sequelize.define("Asset", {
 AssetModel.belongsTo(UserModel, {
   as: "responsible",       
   foreignKey: "responsibleId",
+  onDelete: "CASCADE",
 });

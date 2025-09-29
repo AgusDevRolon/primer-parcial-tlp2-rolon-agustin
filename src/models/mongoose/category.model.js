@@ -26,4 +26,13 @@ CategorySchema.virtual("assets", {
   foreignField: "categories", 
 });
 
+CategorySchema.pre("deleteOne", { document: true, query: false }, async function(next) {
+  const categoryId = this._id;
+  await mongoose.model("Asset").updateMany(
+    { categories: categoryId },
+    { $pull: { categories: categoryId } }
+  );
+  next();
+});
+
 export const CategoryModel = model("Category", CategorySchema);
