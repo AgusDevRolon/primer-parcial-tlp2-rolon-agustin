@@ -8,3 +8,15 @@ export const AssetCategoryModel = sequelize.define("AssetCategory", {
 // * N:M Asset ↔ Category through AssetCategory
 // * 'categories' (Asset) y 'assets' (Category)
 // ! FALTA COMPLETAR ACA
+
+AssetModel.belongsToMany(CategoryModel, {
+  as: "categories",           
+  through: AssetCategoryModel,
+  foreignKey: "assetId",
+});
+
+CategoryModel.belongsToMany(AssetModel, {
+  as: "assets",               
+  through: AssetCategoryModel,
+  foreignKey: "categoryId",
+});

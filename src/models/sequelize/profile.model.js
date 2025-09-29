@@ -15,3 +15,5 @@ export const ProfileModel = sequelize.define("Profile", {
 // * 1:1 Profile ↔ User
 // * 'profile' (User) y 'user' (Profile)
 // ! FALTA COMPLETAR ACA
+
+ProfileModel.belongsTo(UserModel, { as: "user", foreignKey: "userId" });

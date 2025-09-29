@@ -21,8 +21,16 @@ const AssetSchema = new Schema(
     acquisitionDate: { type: Date, required: true },
     acquisitionValue: { type: Number, required: true, min: 0 },
     // ! FALTA COMPLETAR ACA
+    responsible: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // 1:N
+
   },
   { timestamps: true }
 );
+
+AssetSchema.virtual("userAssets", {
+  ref: "User",
+  localField: "responsible",
+  foreignField: "_id",
+});
 
 export const AssetModel = model("Asset", AssetSchema);

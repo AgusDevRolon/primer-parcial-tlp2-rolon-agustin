@@ -10,3 +10,4 @@ export const UserModel = sequelize.define("User", {
     defaultValue: "secretary",
   },
 });
+
