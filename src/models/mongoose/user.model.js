@@ -54,6 +54,13 @@ const UserSchema = new Schema(
 
 // ! FALTA COMPLETAR ACA
 
+ProfileSchema.virtual("user",{
+  ref: "User",
+  localField: "_id",
+  foreignField: "profile._id",
+  justOne: true,  //porque es 1:1
+});
+
 UserSchema.virtual("assets", {
   ref: "Asset",             
   localField: "_id",         

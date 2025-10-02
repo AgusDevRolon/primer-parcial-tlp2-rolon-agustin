@@ -28,3 +28,11 @@ AssetModel.belongsTo(UserModel, {
   foreignKey: "responsibleId",
   onDelete: "CASCADE",
 });
+
+
+AssetModel.belongsToMany(CategoryModel, {
+  as: "categories",
+  through: AssetCategoryModel,
+  foreignKey: "assetId",
+  onDelete: "CASCADE",
+});

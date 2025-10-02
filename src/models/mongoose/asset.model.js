@@ -37,10 +37,10 @@ AssetSchema.virtual("userAssets", {
 });
 
 AssetSchema.pre("deleteOne", { document: true, query: false }, async function(next) {
-  const assetId = this._id;
 
   await mongoose.model("Category").updateMany(
     { _id: { $in: this.categories } },
+    {$pull: {categories: this._id}}
   );
 
   next();

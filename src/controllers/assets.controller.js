@@ -1,3 +1,6 @@
+import { AssetModel } from "../models/mongoose/asset.model.js";
+
+
 export const createAsset = async (req, res) => {
   try {
     // TODO: crear asset (usuario autenticado)

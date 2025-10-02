@@ -14,3 +14,14 @@ export const UserModel = sequelize.define("User", {
   timestamps: true
 });
 
+UserModel.hasOne(ProfileModel, { 
+  as: "profile", 
+  foreignKey: "userId", 
+  onDelete: "CASCADE" 
+});
+
+UserModel.hasMany(AssetModel, { 
+  as: "assets", 
+  foreignKey: "responsibleId", 
+  onDelete: "CASCADE" 
+});
